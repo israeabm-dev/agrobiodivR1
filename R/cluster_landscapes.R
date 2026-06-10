@@ -13,7 +13,7 @@
 #' @return Le data.frame d'entrée enrichi d'une colonne \code{cluster}
 #'   (entier de 1 à n_clusters) et d'une colonne \code{cluster_label}.
 #'
-#' @importFrom stats kmeans scale
+#' @importFrom stats kmeans
 #'
 #' @export
 #'

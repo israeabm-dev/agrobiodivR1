@@ -16,8 +16,7 @@
 #' }
 #'
 #' @importFrom stats predict cor
-#' @importFrom ggplot2 ggplot aes geom_point geom_abline geom_bar labs
-#'   theme_minimal coord_flip scale_fill_viridis_c
+#' @importFrom ggplot2 ggplot aes geom_point geom_abline geom_bar labs theme_minimal coord_flip
 #'
 #' @export
 #'

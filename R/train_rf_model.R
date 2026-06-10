@@ -11,13 +11,8 @@
 #' @param test_split Proportion des données pour la validation (0-1). Défaut: 0.3.
 #' @param seed Graine aléatoire. Défaut: 42.
 #'
-#' @return Une liste contenant :
-#' \describe{
-#'   \item{model}{Objet randomForest entraîné}
-#'   \item{importance}{Data.frame d'importance des variables (\%IncMSE)}
-#'   \item{train_data}{Données d'entraînement}
-#'   \item{test_data}{Données de test}
-#' }
+#' @return Une liste contenant : model (randomForest),
+#'   importance (data.frame), train_data et test_data.
 #'
 #' @importFrom randomForest randomForest importance
 #' @importFrom stats model.matrix
