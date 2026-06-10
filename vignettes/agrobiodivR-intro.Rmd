@@ -94,7 +94,12 @@ et équilibrée, favorable à la résilience de l'agroécosystème.
 ## Étape 3 : Importer et analyser l'occupation du sol
 
 ```{r import-lc}
-lc <- import_landcover()
+# Raster simulé directement dans la vignette
+library(terra)
+lc <- rast(nrows=20, ncols=20, xmin=-5.5, xmax=-1.0, ymin=33.0, ymax=36.0)
+set.seed(42)
+values(lc) <- sample(1:5, ncell(lc), replace=TRUE, prob=c(0.5,0.2,0.15,0.1,0.05))
+names(lc) <- "landcover"
 terra::plot(lc, main = "Occupation du sol (exemple simulé)",
             col = c("gold", "darkgreen", "lightgreen", "grey60", "steelblue"))
 ```
