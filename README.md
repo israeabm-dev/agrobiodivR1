@@ -171,7 +171,7 @@ devtools::build_vignettes()
 
 ## Auteur
 
-Package développé dans le cadre du cours de programmation R.
+Package développé par **Israe Ait-Oubrahim** dans le cadre du cours de programmation R.
 
 ## Licence
 

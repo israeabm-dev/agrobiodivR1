@@ -2,7 +2,7 @@ Package: agrobiodivR
 Title: Analyse de la Biodiversité Agraire et Connectivité des Habitats
 Version: 0.1.0
 Authors@R: 
-    person("Auteur", "Etudiant", email = "etudiant@example.com", role = c("aut", "cre"))
+    person("Israe", "Ait-Oubrahim", email = "israeabm@gmail.com", role = c("aut", "cre"))
 Description: Package R pour l'analyse de la biodiversité des agroécosystèmes.
     Permet de calculer des indices de biodiversité, analyser les paysages agricoles,
     mesurer la fragmentation des habitats, identifier des corridors écologiques
