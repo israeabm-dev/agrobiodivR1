@@ -1,0 +1,211 @@
+---
+title: "Introduction à agrobiodivR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction à agrobiodivR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  fig.width  = 7,
+  fig.height = 4
+)
+```
+
+## Introduction
+
+`agrobiodivR` est un package R dédié à l'analyse de la **biodiversité agraire** 
+et de la **connectivité des habitats**. Il permet de :
+
+- Calculer des indices de biodiversité (Shannon, Simpson, richesse spécifique)
+- Analyser les paysages agricoles via des métriques paysagères
+- Mesurer la fragmentation des habitats
+- Identifier des corridors écologiques potentiels
+- Modéliser la relation agriculture-biodiversité (Random Forest)
+- Générer des rapports HTML automatiques
+
+## Installation
+
+```r
+# Depuis GitHub
+devtools::install_github("votre-username/agrobiodivR")
+```
+
+## Chargement du package
+
+```{r load}
+library(agrobiodivR)
+```
+
+---
+
+## Étape 1 : Importer les données de biodiversité
+
+```{r import-biodiv}
+# Utilisation des données d'exemple intégrées
+bd <- import_biodiversity_data()
+
+# Structure retournée
+str(bd, max.level = 1)
+
+# Aperçu des données brutes
+head(bd$raw_data)
+```
+
+```{r community-matrix}
+# Matrice de communautés (sites x espèces)
+bd$community_matrix[1:5, 1:4]
+```
+
+---
+
+## Étape 2 : Calculer les indices de biodiversité
+
+```{r diversity-indices}
+indices <- calculate_diversity_indices(bd$community_matrix)
+print(indices)
+```
+
+```{r plot-shannon}
+library(ggplot2)
+ggplot(indices, aes(x = reorder(parcelle, shannon), y = shannon, fill = shannon)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_fill_viridis_c(option = "D") +
+  labs(title  = "Indice de Shannon par parcelle",
+       x      = "Parcelle",
+       y      = "H' (Shannon)",
+       fill   = "H'") +
+  theme_minimal()
+```
+
+### Interprétation
+
+L'indice de Shannon **H'** mesure la diversité spécifique en tenant compte de
+l'abondance relative des espèces. Un H' élevé indique une communauté diverse
+et équilibrée, favorable à la résilience de l'agroécosystème.
+
+---
+
+## Étape 3 : Importer et analyser l'occupation du sol
+
+```{r import-lc}
+lc <- import_landcover()
+terra::plot(lc, main = "Occupation du sol (exemple simulé)",
+            col = c("gold", "darkgreen", "lightgreen", "grey60", "steelblue"))
+```
+
+```{r landscape-metrics}
+metrics <- calculate_landscape_metrics(lc)
+knitr::kable(metrics, digits = 3, caption = "Métriques paysagères globales")
+```
+
+---
+
+## Étape 4 : Distances aux habitats et connectivité
+
+```{r distance}
+dist_result <- calculate_distance_to_habitat(lc, bd$sf_object)
+terra::plot(dist_result$distance_raster,
+            main = "Distance aux habitats naturels (m)",
+            col  = hcl.colors(100, "YlOrRd", rev = TRUE))
+```
+
+```{r connectivity}
+conn <- analyze_connectivity(lc, max_distance_m = 300)
+cat("Indice de connectivité :", conn$connectivity_index, "\n")
+print(conn$summary)
+```
+
+---
+
+## Étape 5 : Classification des paysages (K-means)
+
+```{r cluster}
+# Créer plusieurs zones simulées pour le clustering
+set.seed(42)
+metrics_multi <- data.frame(
+  zone           = paste0("Z", 1:20),
+  fragmentation  = runif(20, 0.1, 2.0),
+  shannon_paysage = runif(20, 0.5, 1.5),
+  prop_naturel   = runif(20, 0.05, 0.60),
+  prop_agriculture = runif(20, 0.20, 0.70),
+  prop_urbain    = runif(20, 0.01, 0.20)
+)
+
+clustered <- cluster_landscapes(metrics_multi, n_clusters = 3)
+
+ggplot(clustered, aes(x = prop_naturel, y = shannon_paysage,
+                       color = factor(cluster), size = fragmentation)) +
+  geom_point(alpha = 0.8) +
+  labs(title  = "Clusters de paysages agricoles",
+       x      = "Proportion habitats naturels",
+       y      = "Shannon paysager",
+       color  = "Cluster",
+       size   = "Fragmentation") +
+  theme_minimal()
+```
+
+---
+
+## Étape 6 : Modèle Random Forest
+
+```{r rf-model}
+# Construire un jeu de données complet pour la modélisation
+set.seed(42)
+model_data <- data.frame(
+  shannon        = indices$shannon[match(paste0("Z", 1:20), clustered$zone)] %||% runif(20, 0.3, 2.0),
+  fragmentation  = clustered$fragmentation,
+  prop_naturel   = clustered$prop_naturel,
+  prop_agriculture = clustered$prop_agriculture,
+  shannon_paysage = clustered$shannon_paysage
+)
+model_data$shannon <- runif(20, 0.3, 2.0)  # données simulées
+
+rf_result <- train_rf_model(model_data, target = "shannon", ntree = 200)
+print(rf_result$importance)
+```
+
+```{r evaluate}
+perf <- evaluate_model(rf_result, target = "shannon", plot = TRUE)
+knitr::kable(perf, caption = "Performances du modèle Random Forest")
+```
+
+---
+
+## Étape 7 : Rapport automatique (fonctionnalité bonus)
+
+```r
+# Générer un rapport HTML complet
+generate_agroeco_report(
+  biodiv_result    = bd,
+  indices          = indices,
+  landscape_metrics = metrics,
+  model_result     = rf_result,
+  output_file      = "rapport_agroecologique.html"
+)
+```
+
+---
+
+## Sources de données recommandées
+
+| Source | Type | URL |
+|--------|------|-----|
+| **GBIF** | Biodiversité terrain | <https://www.gbif.org> |
+| **Corine Land Cover** | Occupation du sol Europe/Maroc | <https://land.copernicus.eu> |
+| **ESA WorldCover** | Occupation du sol mondial | <https://worldcover2021.esa.int> |
+| **OpenStreetMap** | Données géographiques | <https://www.openstreetmap.org> |
+| **INPN** | Inventaire national patrimoine naturel | <https://inpn.mnhn.fr> |
+
+---
+
+## Session Info
+
+```{r session}
+sessionInfo()
+```
