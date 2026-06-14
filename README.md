@@ -87,16 +87,39 @@ generate_agroeco_report(bd, indices, metrics, output_file = "rapport.html")
 
 | Fonction | Description |
 |----------|-------------|
-| `import_biodiversity_data()` | Import CSV/Excel, conversion sf, matrice communautés |
-| `calculate_diversity_indices()` | Shannon, Simpson, richesse, équitabilité |
-| `import_landcover()` | Import raster CLC/ESA, reclassification, découpage |
-| `calculate_landscape_metrics()` | Fragmentation, diversité paysage, proportion habitats |
-| `calculate_distance_to_habitat()` | Raster distance aux habitats naturels |
-| `analyze_connectivity()` | Indice connectivité, corridors potentiels |
-| `cluster_landscapes()` | K-means sur métriques paysagères |
-| `train_rf_model()` | Random Forest biodiversité ~ paysage |
-| `evaluate_model()` | RMSE, R², graphiques Observé vs Prédit |
-| `generate_agroeco_report()` | ⭐ Rapport HTML avec carte Leaflet (bonus) |
+| `download_satellite_data()` | Télécharge des images Sentinel-2 |
+| `import_biodiversity_data()` | Importe données terrain (CSV, Excel) |
+| `calculate_diversity_indices()` | Calcule Shannon, Simpson, richesse |
+| `import_landcover()` | Importe raster d'occupation du sol |
+| `calculate_landscape_metrics()` | Métriques paysagères (patches, fragmentation) |
+| `calculate_distance_to_habitat()` | Distance aux forêts, haies, etc. |
+| `analyze_connectivity()` | Connectivité simple |
+| `cluster_landscapes()` | Classification K-means des paysages |
+| `train_rf_model()` | Modèle Random Forest biodiversité |
+| `evaluate_model()` | Évaluation RMSE / R² |
+| `identify_ecological_corridors()` | Corridors potentiels |
+| `plot_biodiversity_map()` | Cartes |
+| `plot_connectivity_map()` | Cartes de connectivité |
+| `generate_recommendations()` | Recommandations écologiques |
+| `generate_report()` | Rapport HTML/PDF |
+### Exemple d'utilisation avec téléchargement satellite
+
+\```r
+library(agrobiodivR)
+library(sf)
+
+# Définir zone d'étude
+aoi <- st_read("my_area.geojson")
+
+# Télécharger image Sentinel-2
+download_satellite_data(aoi, "2024-05-01", cloud_cover = 10)
+
+# Importer l'image téléchargée
+landcover <- import_landcover("data/satellite/sentinel2_image.tif")
+
+# Calculer les métriques
+metrics <- calculate_landscape_metrics(landcover)
+\```
 
 ---
 

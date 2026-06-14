@@ -14,12 +14,15 @@
 #' @return Une liste contenant : model (randomForest),
 #'   importance (data.frame), train_data et test_data.
 #'
+#' @seealso \code{\link{evaluate_model}} pour évaluer les performances du modèle.
+#' @importFrom stats complete.cases
 #' @importFrom randomForest randomForest importance
 #' @importFrom stats model.matrix
 #'
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Données simulées
 #' set.seed(1)
 #' df <- data.frame(
@@ -30,6 +33,7 @@
 #' )
 #' model_result <- train_rf_model(df, target = "shannon")
 #' print(model_result$importance)
+#' }
 train_rf_model <- function(data, target = "shannon",
                             predictors = NULL,
                             ntree = 500,

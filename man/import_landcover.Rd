@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_landcover.R
 \name{import_landcover}
 \alias{import_landcover}
-\title{Importer les données d'occupation du sol}
+\title{Importer les donnees d'occupation du sol}
 \usage{
 import_landcover(
   file = NULL,
@@ -13,31 +13,32 @@ import_landcover(
 }
 \arguments{
 \item{file}{Chemin vers un fichier raster (GeoTIFF, .img, etc.).
-Si NULL, utilise le raster d'exemple \code{sample_landcover}.}
+Si NULL, utilise le raster d'exemple simule.}
 
-\item{study_area}{Objet sf définissant la zone d'étude pour le découpage.
-Si NULL, utilise l'emprise complète du raster.}
+\item{study_area}{Objet sf definissant la zone d'etude pour le decoupage.
+Si NULL, utilise l'emprise complete du raster.}
 
 \item{reclassify}{Logique. Si TRUE, reclassifie les codes CLC en
-grandes catégories (Agriculture, Forêt, Prairie, Urbain, Eau, Autre).
-Défaut: TRUE.}
+grandes categories (Agriculture, Foret, Prairie, Urbain, Eau, Autre).
+Defaut: TRUE.}
 
-\item{crs_target}{EPSG cible pour la reprojection. Défaut: 4326.}
+\item{crs_target}{EPSG cible pour la reprojection. Defaut: 4326.}
 }
 \value{
 Un objet \code{SpatRaster} (terra) avec les classes d'occupation du sol.
 }
 \description{
-Importe et prépare un raster d'occupation du sol (Corine Land Cover,
+Importe et prepare un raster d'occupation du sol (Corine Land Cover,
 ESA Land Cover, ou fichier local). Effectue la reclassification et le
-découpage sur la zone d'étude.
+decoupage sur la zone d'etude.
 }
 \examples{
+\dontrun{
 lc <- import_landcover()
 terra::plot(lc, main = "Occupation du sol")
 
 \dontrun{
-# Avec un fichier CLC local
 lc <- import_landcover("CLC2018_MA.tif", reclassify = TRUE)
+}
 }
 }

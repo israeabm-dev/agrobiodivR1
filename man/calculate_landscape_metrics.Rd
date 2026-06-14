@@ -2,37 +2,28 @@
 % Please edit documentation in R/calculate_landscape_metrics.R
 \name{calculate_landscape_metrics}
 \alias{calculate_landscape_metrics}
-\title{Calculer les métriques paysagères}
+\title{Calcul de métriques paysagères simples}
 \usage{
-calculate_landscape_metrics(landcover, zones = NULL)
+calculate_landscape_metrics(landcover_raster, zone = NULL)
 }
 \arguments{
-\item{landcover}{Objet \code{SpatRaster} d'occupation du sol
-(issu de \code{import_landcover}).}
+\item{landcover_raster}{SpatRaster ou RasterLayer. Carte d'occupation du sol.}
 
-\item{zones}{Objet sf des zones/parcelles pour le calcul par zone.
-Si NULL, calcule sur l'emprise complète.}
+\item{zone}{sf (optionnel). Zones pour lesquelles calculer les métriques.}
 }
 \value{
-Un data.frame avec les métriques paysagères :
-\describe{
-\item{zone}{Identifiant de la zone (si zones fourni)}
-\item{n_patches}{Nombre de patches (fragments)}
-\item{mean_patch_size_ha}{Taille moyenne des patches en hectares}
-\item{prop_agriculture}{Proportion de surface agricole (0-1)}
-\item{prop_naturel}{Proportion d'habitats naturels (forêt + prairie) (0-1)}
-\item{prop_urbain}{Proportion de surfaces urbaines (0-1)}
-\item{shannon_paysage}{Indice de Shannon paysager (diversité des classes)}
-\item{fragmentation}{Indice de fragmentation (n_patches / surface_km2)}
-}
+Un data.frame au format long contenant les métriques calculées par classe et au niveau paysager. Un attribut \code{fragmentation_index} est ajouté.
 }
 \description{
-Calcule des métriques paysagères simples à partir d'un raster d'occupation
-du sol : taille des patches, fragmentation, proportion d'habitats naturels,
-et diversité du paysage (indice de Shannon paysager).
+Calcul de métriques paysagères simples
 }
 \examples{
-lc <- import_landcover()
-metrics <- calculate_landscape_metrics(lc)
-print(metrics)
+\dontrun{
+\dontrun{
+  r <- terra::rast("landcover.tif")
+  metrics <- calculate_landscape_metrics(r)
+  print(metrics)
+  attr(metrics, "fragmentation_index")
+}
+}
 }

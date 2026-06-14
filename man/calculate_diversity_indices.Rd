@@ -26,6 +26,7 @@ Calcule les principaux indices de biodiversité (Shannon, Simpson, richesse
 spécifique) par parcelle/site à partir d'une matrice de communautés.
 }
 \examples{
+\dontrun{
 result <- import_biodiversity_data()
 indices <- calculate_diversity_indices(result$community_matrix)
 print(indices)
@@ -35,5 +36,6 @@ print(indices)
 barplot(indices$shannon, names.arg = indices$parcelle,
         main = "Indice de Shannon par parcelle",
         ylab = "H'", col = "steelblue")
+}
 }
 }

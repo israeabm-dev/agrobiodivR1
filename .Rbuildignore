@@ -4,3 +4,5 @@
 ^\.claude$
 ^doc$
 ^Meta$
+^^data-raw$$
+^^\\.github$$

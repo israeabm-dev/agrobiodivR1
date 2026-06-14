@@ -3,18 +3,17 @@
 \docType{data}
 \name{sample_biodiversity}
 \alias{sample_biodiversity}
-\title{Données de biodiversité terrain simulées}
+\title{Donnees de biodiversite d'exemple}
 \format{
-Un data.frame avec 200 lignes et 5 variables :
-\describe{
-\item{espece}{Nom de l'espèce observée}
-\item{abondance}{Nombre d'individus comptés}
-\item{parcelle}{Identifiant de la parcelle}
-\item{lon}{Longitude}
-\item{lat}{Latitude}
+Une liste avec plusieurs composantes.
 }
+\source{
+Donnees simulees
+}
+\usage{
+sample_biodiversity
 }
 \description{
-Données de biodiversité terrain simulées
+Jeu de donnees simule pour les exemples du package.
 }
 \keyword{datasets}

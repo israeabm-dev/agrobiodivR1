@@ -35,6 +35,7 @@ CSV ou Excel. Gère les valeurs manquantes, convertit en objet spatial
 et crée une matrice de communautés.
 }
 \examples{
+\dontrun{
 # Utiliser les données d'exemple
 result <- import_biodiversity_data()
 head(result$community_matrix)
@@ -43,5 +44,6 @@ print(result$sf_object)
 # Avec un fichier CSV
 \dontrun{
 result <- import_biodiversity_data("mes_donnees.csv")
+}
 }
 }

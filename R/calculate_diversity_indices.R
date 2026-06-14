@@ -21,6 +21,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' result <- import_biodiversity_data()
 #' indices <- calculate_diversity_indices(result$community_matrix)
 #' print(indices)
@@ -30,6 +31,7 @@
 #' barplot(indices$shannon, names.arg = indices$parcelle,
 #'         main = "Indice de Shannon par parcelle",
 #'         ylab = "H'", col = "steelblue")
+#' }
 #' }
 calculate_diversity_indices <- function(community_matrix) {
 

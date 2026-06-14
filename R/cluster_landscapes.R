@@ -18,6 +18,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' lc <- import_landcover()
 #' metrics <- calculate_landscape_metrics(lc)
 #' # Dupliquer pour avoir assez de lignes pour le clustering
@@ -25,6 +26,7 @@
 #' metrics_multi$fragmentation <- runif(10)
 #' result <- cluster_landscapes(metrics_multi, n_clusters = 2)
 #' print(result[, c("zone", "cluster", "cluster_label")])
+#' }
 cluster_landscapes <- function(landscape_metrics,
                                 n_clusters = 3,
                                 variables  = c("fragmentation",

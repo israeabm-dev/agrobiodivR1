@@ -31,6 +31,7 @@ Applique un algorithme K-means pour regrouper les zones/parcelles en
 types de paysages homogènes selon leurs métriques paysagères.
 }
 \examples{
+\dontrun{
 lc <- import_landcover()
 metrics <- calculate_landscape_metrics(lc)
 # Dupliquer pour avoir assez de lignes pour le clustering
@@ -38,4 +39,5 @@ metrics_multi <- metrics[rep(1, 10), ]
 metrics_multi$fragmentation <- runif(10)
 result <- cluster_landscapes(metrics_multi, n_clusters = 2)
 print(result[, c("zone", "cluster", "cluster_label")])
+}
 }

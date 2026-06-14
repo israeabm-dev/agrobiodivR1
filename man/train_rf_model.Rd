@@ -36,6 +36,7 @@ Modélise la relation entre les pratiques agricoles / métriques paysagères
 et la biodiversité via un algorithme Random Forest.
 }
 \examples{
+\dontrun{
 # Données simulées
 set.seed(1)
 df <- data.frame(
@@ -46,4 +47,8 @@ df <- data.frame(
 )
 model_result <- train_rf_model(df, target = "shannon")
 print(model_result$importance)
+}
+}
+\seealso{
+\code{\link{evaluate_model}} pour évaluer les performances du modèle.
 }

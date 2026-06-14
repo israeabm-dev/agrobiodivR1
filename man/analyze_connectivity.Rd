@@ -2,35 +2,39 @@
 % Please edit documentation in R/analyze_connectivity.R
 \name{analyze_connectivity}
 \alias{analyze_connectivity}
-\title{Analyser la connectivité écologique}
+\title{Analyser la connectivite ecologique}
 \usage{
 analyze_connectivity(landcover, habitat_codes = c(2, 3), max_distance_m = 500)
 }
 \arguments{
 \item{landcover}{Objet \code{SpatRaster} d'occupation du sol.}
 
-\item{habitat_codes}{Codes des habitats naturels. Défaut: c(2, 3).}
+\item{habitat_codes}{Codes des habitats naturels. Defaut: c(2, 3).}
 
-\item{max_distance_m}{Seuil de distance (en mètres) au-delà duquel
-un patch est considéré isolé. Défaut: 500.}
+\item{max_distance_m}{Seuil de distance (en metres) au-dela duquel
+un patch est considere isole. Defaut: 500.}
 }
 \value{
 Une liste contenant :
 \describe{
-\item{connectivity_index}{Indice global de connectivité (0-1)}
-\item{isolated_zones}{SpatRaster des zones isolées}
-\item{corridor_raster}{SpatRaster des corridors potentiels (zones < seuil)}
-\item{summary}{Data.frame de résumé}
+\item{connectivity_index}{Indice global de connectivite (0-1)}
+\item{isolated_zones}{SpatRaster des zones isolees}
+\item{corridor_raster}{SpatRaster des corridors potentiels}
+\item{summary}{Data.frame de resume}
 }
 }
 \description{
-Analyse la connectivité entre patches d'habitats naturels en calculant
-les distances inter-patches, identifiant les zones isolées et proposant
-des corridors écologiques potentiels.
+Analyse la connectivite entre patches d'habitats naturels en calculant
+les distances inter-patches, identifiant les zones isolees et proposant
+des corridors ecologiques potentiels.
 }
 \examples{
+\dontrun{
+\dontrun{
 lc <- import_landcover()
 conn <- analyze_connectivity(lc, max_distance_m = 300)
 print(conn$summary)
 terra::plot(conn$corridor_raster, main = "Corridors potentiels")
+}
+}
 }

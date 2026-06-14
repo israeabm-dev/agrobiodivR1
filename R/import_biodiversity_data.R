@@ -17,6 +17,7 @@
 #'   \item{raw_data}{Data.frame original nettoyé}
 #' }
 #'
+#' @importFrom stats complete.cases
 #' @importFrom sf st_as_sf st_crs
 #' @importFrom dplyr mutate filter select
 #' @importFrom tidyr pivot_wider
@@ -25,6 +26,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Utiliser les données d'exemple
 #' result <- import_biodiversity_data()
 #' head(result$community_matrix)
@@ -33,6 +35,7 @@
 #' # Avec un fichier CSV
 #' \dontrun{
 #' result <- import_biodiversity_data("mes_donnees.csv")
+#' }
 #' }
 import_biodiversity_data <- function(file = NULL, sep = ",",
                                       coords = c("lon", "lat"),

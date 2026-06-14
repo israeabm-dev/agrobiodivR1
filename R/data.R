@@ -1,14 +1,15 @@
-#' Données de biodiversité terrain simulées
+#' Raster d'occupation du sol d'exemple
 #'
-#' @format Un data.frame avec 200 lignes et 5 variables :
-#' \describe{
-#'   \item{espece}{Nom de l'espèce observée}
-#'   \item{abondance}{Nombre d'individus comptés}
-#'   \item{parcelle}{Identifiant de la parcelle}
-#'   \item{lon}{Longitude}
-#'   \item{lat}{Latitude}
-#' }
-#' @name sample_biodiversity
-#' @docType data
-#' @keywords datasets
-NULL
+#' Une matrice simulee avec 5 classes d'occupation du sol.
+#'
+#' @format Une matrice 20x20.
+#' @source Donnees simulees
+"sample_landcover"
+
+#' Donnees de biodiversite d'exemple
+#'
+#' Jeu de donnees simule pour les exemples du package.
+#'
+#' @format Une liste avec plusieurs composantes.
+#' @source Donnees simulees
+"sample_biodiversity"

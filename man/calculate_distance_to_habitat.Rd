@@ -17,23 +17,27 @@ calculate_distance_to_habitat(
 Si NULL, retourne uniquement les rasters de distance.}
 
 \item{habitat_codes}{Vecteur des codes de classes d'habitat cibles.
-Défaut: c(2, 3) = Forêt + Prairie.}
+Defaut: c(2, 3) = Foret + Prairie.}
 }
 \value{
 Une liste contenant :
 \describe{
-\item{distance_raster}{SpatRaster de distance (en mètres approx.) aux habitats}
-\item{points_with_distance}{Objet sf des points avec colonne dist_habitat ajoutée}
+\item{distance_raster}{SpatRaster de distance (en metres) aux habitats}
+\item{points_with_distance}{Objet sf des points avec colonne dist_habitat ajoutee}
 }
 }
 \description{
-Calcule des rasters de distance euclidienne aux habitats d'intérêt
-(forêt, haies, habitats semi-naturels) et extrait ces distances
+Calcule des rasters de distance euclidienne aux habitats d'interet
+(foret, haies, habitats semi-naturels) et extrait ces distances
 pour chaque parcelle d'observation.
 }
 \examples{
+\dontrun{
+\dontrun{
 lc <- import_landcover()
 bd <- import_biodiversity_data()
 result <- calculate_distance_to_habitat(lc, bd$sf_object)
 terra::plot(result$distance_raster, main = "Distance aux habitats naturels")
+}
+}
 }

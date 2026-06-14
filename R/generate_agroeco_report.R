@@ -21,12 +21,14 @@
 #'
 #' @examples
 #' \dontrun{
+#' \dontrun{
 #' bd      <- import_biodiversity_data()
 #' indices <- calculate_diversity_indices(bd$community_matrix)
 #' lc      <- import_landcover()
 #' metrics <- calculate_landscape_metrics(lc)
 #' generate_agroeco_report(bd, indices, metrics,
 #'                         output_file = "mon_rapport.html")
+#' }
 #' }
 generate_agroeco_report <- function(biodiv_result,
                                      indices,

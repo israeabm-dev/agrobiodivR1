@@ -2,38 +2,34 @@
 % Please edit documentation in R/evaluate_model.R
 \name{evaluate_model}
 \alias{evaluate_model}
-\title{Évaluer les performances du modèle}
+\title{Évaluer les performances d'un modèle Random Forest}
 \usage{
-evaluate_model(model_result, target = "shannon", plot = TRUE)
+evaluate_model(rf_result, target = "shannon")
 }
 \arguments{
-\item{model_result}{Liste retournée par \code{train_rf_model}.}
+\item{rf_result}{Liste retournée par \code{\link{train_rf_model}}.
+Doit contenir les éléments \code{model} et \code{test_data}.}
 
-\item{target}{Nom de la variable cible. Défaut: "shannon".}
-
-\item{plot}{Logique. Si TRUE, affiche les graphiques. Défaut: TRUE.}
+\item{target}{Nom de la variable cible (par défaut "shannon").
+Doit correspondre à celui utilisé dans \code{train_rf_model}.}
 }
 \value{
-Un data.frame avec les métriques :
-\describe{
-\item{set}{Jeu de données (train / test)}
-\item{rmse}{Erreur quadratique moyenne}
-\item{mae}{Erreur absolue moyenne}
-\item{r2}{Coefficient de détermination R²}
-}
+Une liste contenant :
+\item{RMSE}{Root Mean Square Error}
+\item{R2}{Coefficient de détermination}
+\item{plot}{Graphique ggplot2 observed vs predicted}
+\item{predictions}{Data.frame avec les valeurs observées et prédites}
 }
 \description{
-Calcule les métriques de performance (RMSE, R²) et produit des
-visualisations du modèle Random Forest.
+Calcule RMSE, R² et produit un graphique des valeurs observées vs prédites.
 }
 \examples{
-set.seed(1)
-df <- data.frame(
-  shannon       = runif(50, 0, 2),
-  fragmentation = runif(50),
-  prop_naturel  = runif(50)
-)
-model_result <- train_rf_model(df, target = "shannon")
-perf <- evaluate_model(model_result, target = "shannon", plot = FALSE)
-print(perf)
+\dontrun{
+\dontrun{
+  result <- train_rf_model(biodiv_data, target = "shannon")
+  evaluation <- evaluate_model(result)
+  print(evaluation$RMSE)
+  print(evaluation$plot)
+}
+}
 }

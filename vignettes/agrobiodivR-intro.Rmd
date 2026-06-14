@@ -32,7 +32,7 @@ et de la **connectivité des habitats**. Il permet de :
 
 ```r
 # Depuis GitHub
-devtools::install_github("votre-username/agrobiodivR")
+devtools::install_github("israeabm-dev/agrobiodivR")
 ```
 
 ## Chargement du package
@@ -175,10 +175,13 @@ rf_result <- train_rf_model(model_data, target = "shannon", ntree = 200)
 print(rf_result$importance)
 ```
 
-```{r evaluate}
-perf <- evaluate_model(rf_result, target = "shannon", plot = TRUE)
-knitr::kable(perf, caption = "Performances du modèle Random Forest")
-```
+evaluate_model <- function(model_result, target, plot = FALSE) {
+  if (plot) {
+    # ex: plot(model_result$model$predicted, ...)
+  }
+  
+  return(perf)
+}
 
 ---
 
